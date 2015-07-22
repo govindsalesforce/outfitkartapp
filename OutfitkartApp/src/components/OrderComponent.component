@@ -1,0 +1,137 @@
+<apex:component controller="OutfitController2" allowDML="true">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $("#orderDiv" ).tabs();
+        /*$(".colDiv").click(function(){
+            $(".colDiv").collapse('toggle');
+         });*/
+        //$( ".accordion" ).accordion();
+    });
+    function collapseDIV(div){
+       $(div).collapse('toggle');
+    }
+    </script>
+    <div id="orderDiv">
+        <ul>
+            <li><a href="#oldOrdTb">History</a></li>
+            <li><a href="#curOrdTb">Current</a></li>
+        </ul>
+        <div id="oldOrdTb">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Old Orders</div>
+                <apex:outputText rendered="{!oldOrdersSize==0}">No Data Available</apex:outputText>
+                <apex:form >
+                    <apex:pageBlock rendered="{!oldOrdersSize!=0}">
+                        <apex:repeat value="{!oldOrders}" var="oldOrder">
+                            <div class="panel panel-primary ">
+                                
+                                <div class="panel-heading">{!oldOrder}</div>
+                                <apex:pageBlockTable value="{!oldOrders[oldOrder]}" var="oldProductWrapper">
+                                    <apex:column >
+                                        <apex:facet name="header">Name</apex:facet>
+                                        {!oldProductWrapper.pwPro.Name}
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">Product Code</apex:facet>
+                                        {!oldProductWrapper.pwPro.ProductCode}
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">Description</apex:facet>
+                                        {!oldProductWrapper.pwPro.Description}
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">Quantity</apex:facet>
+                                        {!oldProductWrapper.qty}
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">Unit Price</apex:facet>
+                                        {!IF(oldProductWrapper.listPrice.empty,'--',oldProductWrapper.listPrice)}
+                                    </apex:column> 
+                                    <apex:column >  
+                                        <apex:facet name="header">Preview</apex:facet>
+                                        
+                                        <apex:commandLink onclick="javascript:showPopup()" action="{!getPreviews}" value="Show" styleClass="btn" rerender="previewPanel">
+                                            <apex:param name="pid" value="{!oldProductWrapper.pwPro.Id}"></apex:param>
+                                        </apex:commandLink>
+                                        
+                                    </apex:column>
+                                    <apex:column >  
+                                        <apex:facet name="header">Delivered On</apex:facet>
+                                        {!oldProductWrapper.pwPro.Delevered_On__c}
+                                    </apex:column>
+                                </apex:pageBlockTable>
+                            </div>
+                        </apex:repeat>
+                    </apex:pageBlock>
+                </apex:form>
+            </div>
+        </div>
+        
+        <div id="curOrdTb">
+            <div class="panel panel-primary" >
+                <div class="panel-heading">Current Orders</div>
+                <apex:outputText rendered="{!newOrdersSize==0}">No Data Available</apex:outputText>
+                <apex:form >
+                    <apex:pageBlock rendered="{!newOrdersSize!=0}">
+                        
+                        <apex:repeat value="{!newOrders}" var="newOrder">
+                            <div class="panel panel-primary accordion" >
+                                
+                                <div class="panel-heading">{!newOrder}</div>
+                                
+                                <apex:pageBlockTable value="{!newOrders[newOrder]}" id="kartTable" var="newProductWrapper">
+                                    
+                                    <apex:column >
+                                        <apex:facet name="header">Name</apex:facet>
+                                        {!newProductWrapper.pwPro.Name}
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">Product Code</apex:facet>
+                                        {!newProductWrapper.pwPro.ProductCode}
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">Description</apex:facet>
+                                        {!newProductWrapper.pwPro.Description}
+                                    </apex:column>
+                                     <apex:column >
+                                        <apex:facet name="header">Quantity</apex:facet>
+                                        {!newProductWrapper.qty}
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">Unit Price</apex:facet>
+                                        {!IF(newProductWrapper.listPrice.empty,'--',newProductWrapper.listPrice)}
+                                    </apex:column> 
+                                    <apex:column >  
+                                        <apex:facet name="header">Preview</apex:facet>
+                                        <apex:commandLink onclick="javascript:showPopup()" action="{!getPreviews}" value="Show" styleClass="btn" rerender="previewPanel">
+                                            <apex:param name="pid" value="{!newProductWrapper.pwPro.Id}"></apex:param>
+                                        </apex:commandLink>
+                                    </apex:column>
+                                </apex:pageBlockTable>
+                            </div>
+                        </apex:repeat> 
+                    </apex:pageBlock>
+                </apex:form>
+            </div>
+            
+            <apex:outputPanel id="previewPanel">
+                <script type="text/javascript">
+                $(function() {
+                    $('#ordPreviewDiv').dialog({height:500,width:1000});
+                    $('#ordPreviewDiv').dialog("close"); 
+                });
+                function showPopup(){
+                    $('#ordPreviewDiv').dialog("option","show");
+                }
+                </script>
+                <div id="ordPreviewDiv">
+                    <apex:outputText rendered="{!previews.size==0}">No Preview Found</apex:outputText>
+                    <apex:repeat value="{!previews}" var="preview">
+                        <apex:image url="/servlet/servlet.FileDownload?file={!preview.Id}" />
+                    </apex:repeat>
+                </div>
+            </apex:outputPanel>
+        </div>
+    </div>
+</apex:component>

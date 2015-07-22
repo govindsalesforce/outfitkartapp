@@ -1,0 +1,41 @@
+<apex:page standardController="Account" sidebar="false" tabStyle="Account">
+    <head>
+        <c:loadJquery ></c:loadJquery>
+        <c:loadBootstrap ></c:loadBootstrap>
+    </head>
+    <apex:form >
+        <p><h3>Shop Your Outfits</h3></p> 
+        <h1><span class="glyphicon glyphicon-shopping-cart"/>Outfitkart</h1>
+        <apex:pageBlock >
+            <div class="panel panel-primary">
+                <div class="panel-heading">Sign Up</div>
+                <apex:pageBlockSection >
+                    <apex:inputField value="{!Account.Name}" styleClass="form-control" required="true"/>
+                    <apex:inputField value="{!Account.Phone}" styleClass="form-control" required="true"/>
+                    <apex:inputField value="{!Account.Email__c}" styleClass="form-control" required="true"/>
+                    <apex:inputField value="{!Account.Password__c}" styleClass="form-control" required="true"/>
+                    <apex:inputField value="{!Account.Confirm_Password__c}" styleClass="form-control" required="true"/>
+                </apex:pageBlockSection>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">Address Information</div>
+                <apex:pageBlockSection >
+                        <apex:inputField value="{!Account.BillingStreet}" styleClass="form-control"/>
+                        <apex:inputField value="{!Account.ShippingStreet}" styleClass="form-control"/>
+                        <apex:inputField value="{!Account.BillingCity}" styleClass="form-control"  />
+                        <apex:inputField value="{!Account.ShippingCity}" styleClass="form-control"  />
+                        <apex:inputField value="{!Account.BillingState}" styleClass="form-control"  />
+                        <apex:inputField value="{!Account.ShippingState}" styleClass="form-control"/>
+                        <apex:inputField value="{!Account.BillingPostalCode}" styleClass="form-control"  />
+                        <apex:inputField value="{!Account.ShippingPostalCode}" styleClass="form-control"  />
+                        <apex:inputField value="{!Account.BillingCountry}" styleClass="form-control"  />
+                        <apex:inputField value="{!Account.ShippingCountry}" styleClass="form-control"  />
+                </apex:pageBlockSection>
+             </div>
+             <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save"/>
+                <apex:commandButton action="{!cancel}" immediate="true" html-formnovalidate="formnovalidate" value="Cancel"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+ </apex:form>
+</apex:page>

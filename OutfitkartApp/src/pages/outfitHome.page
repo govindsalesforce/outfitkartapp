@@ -1,0 +1,437 @@
+<apex:page controller="OutfitController2" showHeader="false" sidebar="false" tabStyle="Outfit__c" >
+    
+    <head>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/sunny/jquery-ui.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/plug-ins/1.10.7/integration/jqueryui/dataTables.jqueryui.css"/>
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.7/integration/jqueryui/dataTables.jqueryui.js"></script>
+        <script type="text/javascript">
+        $(function() {
+            $( "#outFitDiv" ).tabs();
+            $( "#tabs" ).tabs();
+            $('#ot').dataTable({"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]}); 
+        });
+        function fillWSList(control){
+            if(control.checked)
+                $(".wsList").val(control.value);
+        }
+        function fillESList(control){
+            if(control.checked)
+                $(".esList").val(control.value);
+        }
+        function fillSFList(control){
+            if(control.checked)
+                $(".sfList").val(control.value);
+        }
+        function fillTFList(control){
+            if(control.checked)
+                $(".tfList").val(control.value);
+        }
+        function fillBrList(control){
+            if(control.checked){
+                $(".brList").find("option[value='"+control.value+"']").prop("selected", "true");
+            }
+            else{
+                $(".brList").find("option[value='"+control.value+"']").removeAttr("selected");
+            }
+        }
+        function fillSzList(control){
+            if(control.checked)
+                $(".szList").val(control.value);
+        }
+        </script>
+    </head>
+    <p><h3>Shop Your Outfits</h3></p> 
+<h1><span class="glyphicon glyphicon-shopping-cart"/>Outfitkart</h1>
+<div align="right">
+    Welcome  {!name} &nbsp;&nbsp;&nbsp;&nbsp; [<apex:outputLink value="/apex/outfitLogin">Sign Out</apex:outputLink>]
+</div>
+<p/>
+<div id="outFitDiv">
+    <ul>
+        <li><a href="#outFitTab">Outfits</a></li>
+        <li><a href="#outFitFormTab">Outfit Form</a></li>
+    </ul>
+    <div id="outFitTab">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Outfits</div>
+            <apex:form >
+                <table id="ot"  class="table table-condensed table-hover table-bordered display" >  
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Work Style</th>
+                                <th>Evening Style</th>
+                                <th>Shirt Fit</th>
+                                <th>Trousers Fit</th>
+                                <th>Brand</th>
+                                <th>Size</th>
+                                <th>Created On</th>
+                                <th>Suggestions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <apex:repeat value="{!outfits}" var="outfit" >
+                                <tr>
+                                    <td>{!outfit.Name}</td>
+                                    <td>{!outfit.Work_Style__c}</td>
+                                    <td>{!outfit.Evening_Style__c}</td>
+                                    <td>{!outfit.Shirt_Fit__c}</td>
+                                    <td>{!outfit.Trousers_Fit__c}</td>
+                                    <td>{!outfit.Brand__c}</td>
+                                    <td>{!outfit.Size__c}</td>
+                                    <td>{!outfit.CreatedDate}</td>
+                                    <td>
+                                        <apex:commandLink action="{!displayOutfitProducts}" value="View" reRender="productPanel" status="productStatus">
+                                            <apex:param name="oid" assignTo="{!selectedOutfitId}" value="{!outfit.Id}"></apex:param>
+                                            <apex:param name="oname" assignTo="{!selectedOutfitName}" value="{!outfit.Name}"></apex:param>
+                                        </apex:commandLink> 
+                                   </td>
+                                </tr>
+                            </apex:repeat>
+                        </tbody>
+                        <tfooter>
+                        </tfooter>
+                    </table>
+           </apex:form>
+        </div>
+        <p/>
+       <apex:outputPanel id="productPanel">
+       <script type="text/javascript">
+           $(function() {
+             $('#pt').dataTable({"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]}); 
+          });
+       </script>       
+       <div class="panel panel-primary">
+       <div class="panel-heading">Suggested Products For Selected Outfit {!selectedOutfitName}</div>
+       <table id="pt"  class="table table-condensed table-hover table-bordered display" >  
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <apex:repeat value="{!products}" var="product" >
+                                <tr>
+                                    <td>{!product.Name}</td>
+                                    <td>{!product.ProductCode}</td>
+                                    <td>{!product.Description}</td>
+                               </tr>
+                            </apex:repeat>
+                        </tbody>
+                        <tfooter>
+                        </tfooter>
+                    </table>
+      
+       </div>
+        </apex:outputPanel>
+    </div>
+    <div id="outFitFormTab">
+        
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Work Style</a></li>
+                <li><a href="#tabs-2">Outing Style</a></li>
+                <li><a href="#tabs-3">Shirt Fit</a></li>
+                <li><a href="#tabs-4">Trouser Fit</a></li>
+                <li><a href="#tabs-5">Brands</a></li>
+                <li><a href="#tabs-6">Sizes</a></li>
+                <li><a href="#tabs-7">Confirm</a></li>
+            </ul>
+            <div id="tabs-1">
+                <div>What do you wear at work? </div>
+                <table border="0">
+                    <tr>
+                        <td>
+                            <div align="center">
+                                <input type="radio" onclick="fillWSList(this)" name="ws" value="Casual"/> Casual
+                            </div>
+                            <apex:image url="{!$Resource.Casual}" width="400"  height="400" style="margin:20px;"/>
+                        </td>
+                        <td>
+                            <div align="center"><input type="radio" onclick="fillWSList(this)" name="ws" value="Formal"/> Formal</div>
+                            
+                            <apex:image url="{!$Resource.Formal}" width="400" height="400" style="margin:20px;"/>
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="radio"  onclick="fillWSList(this)" name="ws" value="Business"/> Business</div>
+                            
+                            <apex:image url="{!$Resource.BusinessCasual}" width="400" height="400" style="margin:20px;"/>  
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="radio" onclick="fillWSList(this)" name="ws" value="Trendy"/> Trendy</div>
+                            
+                            <apex:image url="{!$Resource.Trendy}" width="400" height="400" style="margin:20px;"/>  
+                            
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="tabs-2">
+                <div>How do you do to go out? </div>
+                <table border="0">
+                    <tr>
+                        <td>
+                            <div align="center"><input type="radio" onclick="fillESList(this)" name="es" value="Casual"/> Casual</div>
+                            
+                            <apex:image url="{!$Resource.EveningCasual}" width="400"  height="400" style="margin:20px;"/>
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="radio" onclick="fillESList(this)" name="es" value="Dapper"/> Dapper</div>
+                            
+                            <apex:image url="{!$Resource.Dapper}" width="400" height="400" style="margin:20px;"/>
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="radio" onclick="fillESList(this)" name="es" value="Bold"/> Bold</div>
+                            
+                            <apex:image url="{!$Resource.Bold}" width="400" height="400" style="margin:20px;"/>  
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="radio" onclick="fillESList(this)" name="es" value="Trendy"/> Trendy</div>
+                            
+                            <apex:image url="{!$Resource.EveningTrendy}" width="400" height="400" style="margin:20px;"/>  
+                            
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="tabs-3">
+                <div>How do you like your shirt to fit? </div>
+                <table border="0">
+                    <tr>
+                        <td>
+                            <div align="center"><input type="radio" onclick="fillSFList(this)" name="sf" value="Slim"/> Slim</div>
+                            
+                            <apex:image url="{!$Resource.SlimShirt}" width="400"  height="400" style="margin:20px;"/>
+                            
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="radio" onclick="fillSFList(this)" name="sf" value="Classic"/> Classic</div>
+                            
+                            <apex:image url="{!$Resource.ClassicalShirt}" width="400" height="400" style="margin:20px;"/>
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="radio" onclick="fillSFList(this)" name="sf" value="Relaxed Fit"/> Relaxed Fit</div>
+                            
+                            <apex:image url="{!$Resource.Relaxed}" width="400" height="400" style="margin:20px;"/>  
+                            
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="tabs-4">
+                <div>How do you like your trousers to fit?</div>
+                <table border="0">
+                    <tr>
+                        <td>
+                            <div align="center"><input type="radio" onclick="fillTFList(this)" name="tf" value="Slim"/> Slim</div>
+                            
+                            <apex:image url="{!$Resource.TSlim}" width="400"  height="400" style="margin:20px;"/>
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="radio" onclick="fillTFList(this)" name="tf" value="Classic"/> Classic</div>
+                            
+                            <apex:image url="{!$Resource.TClassic}" width="400" height="400" style="margin:20px;"/>
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="radio" onclick="fillTFList(this)" name="tf" value="Relaxed"/> Relaxed</div>
+                            
+                            <apex:image url="{!$Resource.TRelaxed}" width="400" height="400" style="margin:20px;"/>  
+                            
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="tabs-5">
+                <div>Select brands you have in wardrobe?</div>
+                <table border="0">
+                    <tr>
+                        <td>
+                            <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Barbour"/> Barbour</div>
+                            
+                            <apex:image url="{!$Resource.barbour}" width="200"  height="200" style="margin:20px;"/>
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Boss"/> Boss</div>
+                            
+                            <apex:image url="{!$Resource.boss}" width="200" height="200" style="margin:20px;"/>
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Fred Perry"/> Fred Perry</div>
+                            
+                            <apex:image url="{!$Resource.Fredperry}" width="200" height="200" style="margin:20px;"/>  
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Gant"/> Gant</div>
+                            
+                            <apex:image url="{!$Resource.Gant}" width="200" height="200" style="margin:20px;"/>  
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Gap"/> Gap</div>
+                            
+                            <apex:image url="{!$Resource.Gap}" width="200"  height="200" style="margin:20px;"/>
+                            
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Hacket London"/> Hackett London</div>
+                            
+                            <apex:image url="{!$Resource.Hackett}" width="200" height="200" style="margin:20px;"/>
+                            
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Levi's"/> Levi's</div>
+                            
+                            <apex:image url="{!$Resource.Levis}" width="200" height="200" style="margin:20px;"/>
+                            
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Paul Smith"/> Paul Smith</div>
+                            
+                            <apex:image url="{!$Resource.Paulsmith}" width="200" height="200" style="margin:20px;"/>  
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Ralph Lauren"/> Ralph Lauren</div>
+                            
+                            <apex:image url="{!$Resource.RalphLauren}" width="200"  height="200" style="margin:20px;"/>
+                            
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Reiss"/> Reiss</div>
+                            
+                            <apex:image url="{!$Resource.Reiss}" width="200" height="200" style="margin:20px;"/>
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Ted Backer"/> Ted Baker</div>
+                            
+                            <apex:image url="{!$Resource.Tedbaker}" width="200" height="200" style="margin:20px;"/> 
+                            
+                        </td>
+                        <td>
+                            <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Tommy Hilfiger"/> Tommy Hilfiger</div>
+                            
+                            <apex:image url="{!$Resource.Tommyhilfiger}" width="200" height="200" style="margin:20px;"/>
+                            
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="tabs-6">
+                
+                <div>Select sizes you have in wardrobe?</div>
+                <p/>
+                <table align="center" border="2" cellpadding="10" cellspacing="10">
+                    <tr>
+                        <td>
+                            
+                            <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div1">                        
+                                <input type="radio" onclick="fillSzList(this)" name="size" value="X-SMALL"/>  X-SMALL
+                            </div>
+                            
+                        </td>
+                        <td>
+                            
+                            <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div2"> 
+                                <input type="radio" onclick="fillSzList(this)" name="size" value="SMALL"/> SMALL
+                            </div>
+                            
+                        </td>
+                        <td>
+                            
+                            <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div3"> 
+                                <input type="radio" onclick="fillSzList(this)" name="size" value="MEDIUM"/> MEDIUM
+                            </div>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            
+                            <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div7"> 
+                                <input type="radio" onclick="fillSzList(this)" name="size" value="LARGE"/> LARGE
+                            </div>
+                            
+                        </td> 
+                        <td>
+                            
+                            <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div8"> 
+                                <input type="radio" onclick="fillSzList(this)" name="size" value="X-LARGE"/>  X-LARGE
+                            </div>
+                            
+                        </td>
+                        <td>
+                            
+                            <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div9"> 
+                                <input type="radio" onclick="fillSzList(this)" name="size" value="XX-LARGE"/> XX-LARGE
+                            </div>
+                            
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="tabs-7">
+                <apex:form ><apex:pageBlock >
+                    <apex:pageBlockSection title="Confirm The Selection">
+                        What Do You Wear At Work ?
+                        <apex:selectList size="1" multiselect="false" value="{!selectedWorkStyle}" styleClass="wsList">
+                            <apex:selectOptions value="{!workStyles}"></apex:selectOptions>
+                        </apex:selectList>
+                        How do you do to go out?
+                        <apex:selectList size="1" multiselect="false" value="{!selectedEveningStyle}" styleClass="esList">
+                            <apex:selectOptions value="{!eveningStyles}"></apex:selectOptions>
+                        </apex:selectList>
+                        How do you like your shirt to fit?
+                        <apex:selectList size="1" multiselect="false" value="{!selectedShirtFit}" styleClass="sfList">
+                            <apex:selectOptions value="{!shirtFits}"></apex:selectOptions>
+                        </apex:selectList>
+                        How do you like your trousers to fit?
+                        <apex:selectList size="1" multiselect="false" value="{!selectedTrouserFit}" styleClass="tfList">
+                            <apex:selectOptions value="{!trouserFits}"></apex:selectOptions>
+                        </apex:selectList>
+                        Select brands you have in wardrobe
+                        <apex:selectList multiselect="true"  value="{!selectedBrand}" styleClass="brList">
+                            <apex:selectOptions value="{!brands}"></apex:selectOptions>
+                        </apex:selectList>
+                        Select Sizes you have in wardrobe
+                        <apex:selectList size="1" multiselect="false" value="{!selectedSize}" styleClass="szList">
+                            <apex:selectOptions value="{!sizes}"></apex:selectOptions>
+                        </apex:selectList>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockButtons >
+                        <apex:commandButton action="{!submitDetails}" value="Submit"/>
+                    </apex:pageBlockButtons>
+                    </apex:pageBlock>
+                    <apex:pageMessages ></apex:pageMessages>
+                </apex:form>
+            </div>
+        </div>
+     </div>
+  </div>
+  </apex:page>

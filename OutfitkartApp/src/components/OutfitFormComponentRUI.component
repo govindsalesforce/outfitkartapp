@@ -1,0 +1,470 @@
+<apex:component controller="OutfitController2" allowDML="true" >
+    <script type="text/javascript">
+    $(function() {
+        $( "#tabs" ).tabs();
+    });
+    function fillWSList(control){
+        if(control.checked)
+            $(".wsList").val(control.value);
+    }
+    function fillESList(control){
+        if(control.checked)
+            $(".esList").val(control.value);
+    }
+    function fillSFList(control){
+        if(control.checked)
+            $(".sfList").val(control.value);
+    }
+    function fillTFList(control){
+        if(control.checked)
+            $(".tfList").val(control.value);
+    }
+    function fillBrList(control){
+        if(control.checked){
+            $(".brList").find("option[value='"+control.value+"']").prop("selected", "true");
+        }
+        else{
+            $(".brList").find("option[value='"+control.value+"']").removeAttr("selected");
+        }
+    }
+    function fillSzList(control){
+        if(control.checked)
+            $(".szList").val(control.value);
+    }
+    </script>
+    <style>
+       h2{
+        margin: 0;     
+        color: #666;
+        padding-top: 90px;
+        font-size: 52px;
+        font-family: "trebuchet ms", sans-serif;    
+        }
+        .item{
+        background: white;    
+        text-align: center;
+        <!--height: 600px !important; -->
+        }
+        .carousel{
+          margin-top: 20px;
+          width:75%;
+        }
+        .carousel-caption{
+        background: #58ACFA;
+        }
+       
+        .bs-example{
+        margin: 20px;
+       
+        }
+    </style>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Work Style</a></li>
+            <li><a href="#tabs-2">Outing Style</a></li>
+            <li><a href="#tabs-3">Shirt Fit</a></li>
+            <li><a href="#tabs-4">Trouser Fit</a></li>
+            <li><a href="#tabs-5">Brands</a></li>
+            <li><a href="#tabs-6">Sizes</a></li>
+            <li><a href="#tabs-7">Confirm</a></li>
+        </ul>
+        <div id="tabs-1">
+            <div>What do you wear at work? </div>
+            <div class="bs-example">
+                <div id="myWorkStyle" class="carousel slide" data-ride="carousel">
+                    <!-- Carousel indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myWorkStyle" data-slide-to="0" class="active"></li>
+                        <li data-target="#myWorkStyle" data-slide-to="1"></li>
+                        <li data-target="#myWorkStyle" data-slide-to="2"></li>
+                        <li data-target="#myWorkStyle" data-slide-to="3"></li>
+                    </ol>   
+                    <!-- Wrapper for carousel items -->
+                    <div class="carousel-inner">
+                        <div class="active item" style="height:600px">
+                            <div class="carousel-caption">
+                                <div align="center">
+                                    <input type="radio" onclick="fillWSList(this)" name="ws" value="Casual"/> Casual
+                                </div>
+                                <apex:image url="{!$Resource.Casual}" width="400"  height="400" style="margin:20px;"/>
+                            </div>
+                        </div>
+                        <div class="item" style="height:600px">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="radio" onclick="fillWSList(this)" name="ws" value="Formal"/> Formal</div>
+                                
+                                <apex:image url="{!$Resource.Formal}" width="400" height="400" style="margin:20px;"/>                    
+                            </div> 
+                        </div>
+                        <div class="item" style="height:600px">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="radio"  onclick="fillWSList(this)" name="ws" value="Business"/> Business</div>
+                                
+                                <apex:image url="{!$Resource.BusinessCasual}" width="400" height="400" style="margin:20px;"/>                                  
+                            </div> 
+                        </div>
+                        <div class="item" style="height:600px">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="radio" onclick="fillWSList(this)" name="ws" value="Trendy"/> Trendy</div>
+                                
+                                <apex:image url="{!$Resource.Trendy}" width="400" height="400" style="margin:20px;"/>                 
+                            </div> 
+                        </div>
+                        
+                        
+                    </div>
+                    <!-- Carousel controls -->
+                    <a class="carousel-control left" href="#myWorkStyle" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="carousel-control right" href="#myWorkStyle" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="tabs-2">
+            <div>How do you do to go out? </div>
+            <div class="bs-example">
+                <div id="myEveningStyle" class="carousel slide" data-ride="carousel">
+                    <!-- Carousel indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myEveningStyle" data-slide-to="0" class="active"></li>
+                        <li data-target="#myEveningStyle" data-slide-to="1"></li>
+                        <li data-target="#myEveningStyle" data-slide-to="2"></li>
+                        <li data-target="#myEveningStyle" data-slide-to="3"></li>
+                    </ol>   
+                    <!-- Wrapper for carousel items -->
+                    <div class="carousel-inner">
+                        <div class="active item" style="height:600px">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="radio" onclick="fillESList(this)" name="es" value="Casual"/> Casual</div>
+                                <apex:image url="{!$Resource.EveningCasual}" width="400"  height="400" style="margin:20px;"/>
+                            </div>
+                        </div>
+                        <div class="item" style="height:600px">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="radio" onclick="fillESList(this)" name="es" value="Dapper"/> Dapper</div>
+                                <apex:image url="{!$Resource.Dapper}" width="400" height="400" style="margin:20px;"/>               
+                            </div> 
+                        </div>
+                        <div class="item" style="height:600px">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="radio" onclick="fillESList(this)" name="es" value="Bold"/> Bold</div>
+                                <apex:image url="{!$Resource.Bold}" width="400" height="400" style="margin:20px;"/>                                 
+                            </div> 
+                        </div>
+                        <div class="item" style="height:600px">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="radio" onclick="fillESList(this)" name="es" value="Trendy"/> Trendy</div>
+                                <apex:image url="{!$Resource.EveningTrendy}" width="400" height="400" style="margin:20px;"/>                 
+                            </div> 
+                        </div>
+                        
+                        
+                    </div>
+                    <!-- Carousel controls -->
+                    <a class="carousel-control left" href="#myEveningStyle" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="carousel-control right" href="#myEveningStyle" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="tabs-3">
+            <div>How do you like your shirt to fit? </div>
+            <div class="bs-example">
+                <div id="myShirtFit" class="carousel slide" data-ride="carousel">
+                    <!-- Carousel indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myShirtFit" data-slide-to="0" class="active"></li>
+                        <li data-target="#myShirtFit" data-slide-to="1"></li>
+                        <li data-target="#myShirtFit" data-slide-to="2"></li>
+                    </ol>   
+                    <!-- Wrapper for carousel items -->
+                    <div class="carousel-inner">
+                        <div class="active item" style="height:600px">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="radio" onclick="fillSFList(this)" name="sf" value="Slim"/> Slim</div>
+                                <apex:image url="{!$Resource.SlimShirt}" width="400"  height="400" style="margin:20px;"/>
+                            </div>
+                        </div>
+                        <div class="item" style="height:600px">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="radio" onclick="fillSFList(this)" name="sf" value="Classic"/> Classic</div>
+                                <apex:image url="{!$Resource.ClassicalShirt}" width="400" height="400" style="margin:20px;"/>
+                            </div> 
+                        </div>
+                        <div class="item" style="height:600px">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="radio" onclick="fillSFList(this)" name="sf" value="Relaxed Fit"/> Relaxed Fit</div>
+                                <apex:image url="{!$Resource.Relaxed}" width="400" height="400" style="margin:20px;"/>                
+                            </div> 
+                        </div>
+                    </div>
+                    <!-- Carousel controls -->
+                    <a class="carousel-control left" href="#myShirtFit" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="carousel-control right" href="#myShirtFit" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="tabs-4">
+            <div>How do you like your trousers to fit?</div>
+            <div class="bs-example">
+                <div id="myTrouserFit" class="carousel slide" data-ride="carousel">
+                    <!-- Carousel indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myTrouserFit" data-slide-to="0" class="active"></li>
+                        <li data-target="#myTrouserFit" data-slide-to="1"></li>
+                        <li data-target="#myTrouserFit" data-slide-to="2"></li>
+                    </ol>   
+                    <!-- Wrapper for carousel items -->
+                    <div class="carousel-inner">
+                        <div class="active item" style="height:600px">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="radio" onclick="fillTFList(this)" name="tf" value="Slim"/> Slim</div>
+                                <apex:image url="{!$Resource.TSlim}" width="400"  height="400" style="margin:20px;"/>
+                            </div>
+                        </div>
+                        <div class="item" style="height:600px">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="radio" onclick="fillTFList(this)" name="tf" value="Regular"/> Regular</div>
+                                <apex:image url="{!$Resource.TClassic}" width="400" height="400" style="margin:20px;"/>
+                            </div> 
+                        </div>
+                        <div class="item" style="height:600px">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="radio" onclick="fillTFList(this)" name="tf" value="Relaxed"/> Relaxed</div>
+                                <apex:image url="{!$Resource.TRelaxed}" width="400" height="400" style="margin:20px;"/>  
+                            </div> 
+                        </div>
+                    </div>
+                    <!-- Carousel controls -->
+                    <a class="carousel-control left" href="#myTrouserFit" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="carousel-control right" href="#myTrouserFit" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="tabs-5">
+            <div>Select brands you have in wardrobe?</div>
+            <div class="bs-example">
+                <div id="myBrand" class="carousel slide" data-ride="carousel">
+                    <!-- Carousel indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myBrand" data-slide-to="0" class="active"></li>
+                        <li data-target="#myBrand" data-slide-to="1"></li>
+                        <li data-target="#myBrand" data-slide-to="2"></li>
+                        <li data-target="#myBrand" data-slide-to="3"></li>
+                        <li data-target="#myBrand" data-slide-to="4"></li>
+                        <li data-target="#myBrand" data-slide-to="5"></li>
+                        <li data-target="#myBrand" data-slide-to="6"></li>
+                        <li data-target="#myBrand" data-slide-to="7"></li>
+                        <li data-target="#myBrand" data-slide-to="8"></li>
+                        <li data-target="#myBrand" data-slide-to="9"></li>
+                        <li data-target="#myBrand" data-slide-to="10"></li>
+                        <li data-target="#myBrand" data-slide-to="11"></li>
+                     </ol>   
+                    <!-- Wrapper for carousel items -->
+                    <div class="carousel-inner">
+                        <div class="active item" style="height:400px !important">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Barbour"/> Barbour</div>
+                                <apex:image url="{!$Resource.barbour}" width="200"  height="200" style="margin:20px;"/>
+                            </div>
+                        </div>
+                        <div class="item" style="height:400px !important">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Boss"/> Boss</div>
+                                <apex:image url="{!$Resource.boss}" width="200" height="200" style="margin:20px;"/>
+                            </div> 
+                        </div>
+                        <div class="item" style="height:400px !important">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Fred Perry"/> Fred Perry</div>
+                                <apex:image url="{!$Resource.Fredperry}" width="200" height="200" style="margin:20px;"/>  
+                            </div> 
+                        </div>
+                        <div class="active item" style="height:400px !important">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Gant"/> Gant</div>
+                                <apex:image url="{!$Resource.Gant}" width="200"  height="200" style="margin:20px;"/>
+                            </div>
+                        </div>
+                        <div class="item" style="height:400px !important">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Gap"/> Gap</div>
+                                <apex:image url="{!$Resource.Gap}" width="200"  height="200" style="margin:20px;"/>
+                            </div> 
+                        </div>
+                        <div class="item" style="height:400px !important">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Hacket London"/> Hackett London</div>
+                                <apex:image url="{!$Resource.Hackett}" width="200" height="200" style="margin:20px;"/>
+                            </div> 
+                        </div>
+                        <div class="active item" style="height:400px !important">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Levi's"/> Levi's</div>
+                                <apex:image url="{!$Resource.Levis}" width="200" height="200" style="margin:20px;"/>
+                            </div>
+                        </div>
+                        <div class="item" style="height:400px !important">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Paul Smith"/> Paul Smith</div>
+                                <apex:image url="{!$Resource.Paulsmith}" width="200" height="200" style="margin:20px;"/>  
+                            </div> 
+                        </div>
+                        <div class="item" style="height:400px !important">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Ralph Lauren"/> Ralph Lauren</div>
+                                <apex:image url="{!$Resource.RalphLauren}" width="200"  height="200" style="margin:20px;"/>
+                            </div> 
+                        </div>
+                        <div class="active item" style="height:400px !important">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Reiss"/> Reiss</div>
+                                <apex:image url="{!$Resource.Reiss}" width="200" height="200" style="margin:20px;"/>
+                            </div>
+                        </div>
+                        <div class="item" style="height:400px !important">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Ted Backer"/> Ted Baker</div>
+                                <apex:image url="{!$Resource.Tedbaker}" width="200" height="200" style="margin:20px;"/> 
+                            </div> 
+                        </div>
+                        <div class="item" style="height:400px !important">
+                            <div class="carousel-caption">
+                                <div align="center"><input type="checkbox" onclick="fillBrList(this)" name="brand" value="Tommy Hilfiger"/> Tommy Hilfiger</div>
+                                <apex:image url="{!$Resource.Tommyhilfiger}" width="200" height="200" style="margin:20px;"/>
+                            </div> 
+                        </div>
+                    </div>
+                    <!-- Carousel controls -->
+                    <a class="carousel-control left" href="#myBrand" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="carousel-control right" href="#myBrand" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="tabs-6">
+            <div>Select sizes you have in wardrobe?</div>
+            <p/>
+            <div class="bs-example">
+                <div id="mySize" class="carousel slide" data-ride="carousel">
+                    <!-- Carousel indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#mySize" data-slide-to="0" class="active"></li>
+                        <li data-target="#mySize" data-slide-to="1"></li>
+                        <li data-target="#mySize" data-slide-to="2"></li>
+                        <li data-target="#mySize" data-slide-to="3"></li>
+                        <li data-target="#mySize" data-slide-to="4"></li>
+                        <li data-target="#mySize" data-slide-to="5"></li>
+                    </ol>   
+                    <!-- Wrapper for carousel items -->
+                    <div class="carousel-inner">
+                        <div class="active item" style="height:100px !important" >
+                            <div class="carousel-caption">
+                                <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div1">                        
+                                    <input type="radio" onclick="fillSzList(this)" name="size" value="X-SMALL"/>  X-SMALL
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item" style="height:100px !important">
+                            <div class="carousel-caption">
+                                <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div2"> 
+                                    <input type="radio" onclick="fillSzList(this)" name="size" value="SMALL"/> SMALL
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="item" style="height:100px !important">
+                            <div class="carousel-caption">
+                                <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div3"> 
+                                    <input type="radio" onclick="fillSzList(this)" name="size" value="MEDIUM"/> MEDIUM
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="item" style="height:100px !important">
+                            <div class="carousel-caption">
+                                <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div7"> 
+                                    <input type="radio" onclick="fillSzList(this)" name="size" value="LARGE"/> LARGE
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="item" style="height:100px !important">
+                            <div class="carousel-caption">
+                                <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div8"> 
+                                    <input type="radio" onclick="fillSzList(this)" name="size" value="X-LARGE"/>  X-LARGE
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="item" style="height:100px !important">
+                            <div class="carousel-caption">
+                                <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div9"> 
+                                    <input type="radio" onclick="fillSzList(this)" name="size" value="XX-LARGE"/> XX-LARGE
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <!-- Carousel controls -->
+                    <a class="carousel-control left" href="#mySize" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="carousel-control right" href="#mySize" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="tabs-7">
+            <apex:form ><button type="button" onclick="toggleCnt(this)" align="center" class="btn btn-primary" data-toggle="collapse" data-target="#confirmDiv">
+            Confirm The Selection [+]
+        </button>
+        <div class="collapse reponsive"  id="confirmDiv" align="center"> 
+          <table align="center" class="table" style="width:65%" cellspacing="10">
+                        <tr><th>What Do You Wear At Work ?</th>
+                             <td><apex:selectList size="1" multiselect="false" value="{!selectedWorkStyle}" styleClass="form-control wsList">
+                                   <apex:selectOptions value="{!workStyles}"></apex:selectOptions>
+                                  </apex:selectList>
+                            </td></tr>
+                        <tr><th>How do you do to go out?</th>
+                        <td><apex:selectList size="1" multiselect="false" value="{!selectedEveningStyle}" styleClass="form-control esList">
+                            <apex:selectOptions value="{!eveningStyles}"></apex:selectOptions>
+                        </apex:selectList></td></tr>
+                        <tr><th>How do you like your shirt to fit?</th>
+                        <td><apex:selectList size="1" multiselect="false" value="{!selectedShirtFit}" styleClass="form-control sfList">
+                            <apex:selectOptions value="{!shirtFits}"></apex:selectOptions>
+                        </apex:selectList></td></tr>
+                        <tr><th>How do you like your trousers to fit?</th>
+                        <td><apex:selectList size="1" multiselect="false" value="{!selectedTrouserFit}" styleClass="form-control tfList">
+                            <apex:selectOptions value="{!trouserFits}"></apex:selectOptions>
+                        </apex:selectList></td></tr>
+                        <tr><th>Select brands you have in wardrobe</th>
+                        <td><apex:selectList multiselect="true"  value="{!selectedBrand}" styleClass="form-control brList">
+                            <apex:selectOptions value="{!brands}"></apex:selectOptions>
+                        </apex:selectList></td></tr>
+                        <tr><th>Select Sizes you have in wardrobe</th>
+                        <td><apex:selectList size="1" multiselect="false" value="{!selectedSize}" styleClass="form-control szList">
+                            <apex:selectOptions value="{!sizes}"></apex:selectOptions>
+                            </apex:selectList></td></tr>
+                      </table>
+                </div>
+                <div align="center">
+                    <apex:commandButton styleClass="btn-primary" action="{!submitDetails}"  value="Submit"/> 
+                </div>
+           </apex:form>
+        </div>
+    </div>
+</apex:component>

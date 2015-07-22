@@ -1,0 +1,27 @@
+<apex:page controller="OutfitSuggestions" showHeader="false" sidebar="false" tabStyle="Outfit__c">
+   <head>
+       <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+   </head>
+   <p><h3>Shop Your Outfits</h3></p> 
+   <h1><span class="glyphicon glyphicon-shopping-cart"/>Outfitkart</h1>
+   <div class="panel panel-primary">
+       <div class="panel-heading">Products</div>
+       <apex:dataTable value="{!products}" var="product" styleClass="table table-condensed table-hover table-bordered">
+           <apex:column >
+               <apex:facet name="header">Name</apex:facet>
+               {!product.Name}
+           </apex:column>
+           <apex:column >
+               <apex:facet name="header">Code</apex:facet>
+               {!product.ProductCode}
+           </apex:column>
+           <apex:column >
+               <apex:facet name="header">Description</apex:facet>
+               {!product.Description}
+           </apex:column>
+       </apex:dataTable>
+   </div>
+   <div>
+         <apex:outputLink value="/apex/outfitListPage?email={!email}&name={!name}">Outfits</apex:outputLink>
+   </div>
+</apex:page>

@@ -1,0 +1,50 @@
+<apex:page controller="OutfitListController" showHeader="false" sidebar="false" tabStyle="Outfit__c">
+   <head>
+       <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+   </head>
+   <p><h3>Shop Your Outfits</h3></p> 
+   <h1><span class="glyphicon glyphicon-shopping-cart"/>Outfitkart</h1>
+  
+   <div class="panel panel-primary">
+       <div class="panel-heading">Outfits</div>
+       <apex:dataTable value="{!outfits}" var="outfit" styleClass="table table-condensed table-hover table-bordered">
+            <apex:column >
+                <apex:facet name="header">Name</apex:facet>
+                {!outfit.Name}
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Work Style</apex:facet>
+                {!outfit.Work_Style__c}
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Evening Style</apex:facet>
+                {!outfit.Evening_Style__c}
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Shirt Fit</apex:facet>
+                {!outfit.Shirt_Fit__c}
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Trousers Fit</apex:facet>
+                {!outfit.Trousers_Fit__c}
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Brand</apex:facet>
+                {!outfit.Brand__c}
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">Size</apex:facet>
+                {!outfit.Size__c}
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    Suggetions
+                </apex:facet>
+                <apex:outputLink value="/apex/outfitSuggestPage?oid={!outfit.Id}&name={!name}&email={!email}">View</apex:outputLink> 
+            </apex:column>
+        </apex:dataTable>
+   </div>
+   <div>
+       <apex:outputLink value="/apex/outfitForm2?email={!email}&name={!name}">Outfit Form</apex:outputLink>
+   </div>
+</apex:page>

@@ -1,0 +1,7 @@
+<apex:component controller="OutfitController2">
+  <p><h3>Shop Your Outfits</h3></p> 
+  <h1><span class="glyphicon glyphicon-shopping-cart"/>Outfitkart</h1>
+  <div align="right">
+    Welcome  {!name} &nbsp;&nbsp;&nbsp;&nbsp; [<apex:outputLink value="/apex/outfitLogin">Sign Out</apex:outputLink>]
+  </div>
+</apex:component>

@@ -1,0 +1,53 @@
+<apex:page controller="OutfitController" showHeader="false" sidebar="false"> 
+   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+   <apex:form >
+       <apex:pageBlock >
+            <div class="panel panel-primary">
+                <div class="panel-heading">How do you do to go out? </div>
+                    <table border="0">
+                    <tr>
+                        <td>
+                            <div align="center">Casual</div>
+                            <apex:commandLink action="{!gotoShirtFit}">
+                                <apex:param name="selES" assignTo="{!selectedEveningStyle}" value="Casual"></apex:param>
+                                <apex:image url="{!$Resource.EveningCasual}" width="400"  height="400" style="margin:20px;"/>
+                            </apex:commandLink>
+                        </td>
+                        <td>
+                            <div align="center">Dapper</div>
+                            <apex:commandLink action="{!gotoShirtFit}">
+                                <apex:param name="selES" assignTo="{!selectedEveningStyle}" value="Dapper"></apex:param>
+                                <apex:image url="{!$Resource.Dapper}" width="400" height="400" style="margin:20px;"/>
+                           </apex:commandLink>
+                        </td>
+                        <td>
+                            <div align="center">Bold</div>
+                             <apex:commandLink action="{!gotoShirtFit}">
+                                <apex:param name="selES" assignTo="{!selectedEveningStyle}" value="Bold"></apex:param>
+                                <apex:image url="{!$Resource.Bold}" width="400" height="400" style="margin:20px;"/>  
+                            </apex:commandLink>
+                        </td>
+                        <td>
+                            <div align="center">Trendy</div>
+                             <apex:commandLink action="{!gotoShirtFit}">
+                                <apex:param name="selES" assignTo="{!selectedEveningStyle}" value="Trendy"></apex:param>
+                                <apex:image url="{!$Resource.EveningTrendy}" width="400" height="400" style="margin:20px;"/>  
+                            </apex:commandLink>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+             <apex:pageBlockButtons >
+                <apex:commandButton action="{!gotoWorkStyle}" value="Work Style"/>
+                <apex:commandButton action="{!gotoShirtFit}" value="Shirt Fit"/>
+                <apex:commandButton action="{!gotoTrouserFit}" value="Trouser Fit"/>
+                <apex:commandButton action="{!gotoBrand}" value="Brand"/>
+                <apex:commandButton action="{!gotoSize}" value="Size"/>
+                <apex:commandButton action="{!gotoPersonalDetails}" value="Personal Details"/>
+                <apex:commandButton action="{!gotoOutfitForm}" value="Confirm Details"/>
+             </apex:pageBlockButtons>
+          
+           <apex:pageMessages ></apex:pageMessages>
+       </apex:pageBlock>
+  </apex:form>
+</apex:page>

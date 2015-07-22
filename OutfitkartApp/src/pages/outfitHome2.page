@@ -1,0 +1,67 @@
+<apex:page showHeader="false" sidebar="false" standardStyleSheets="false" docType="html-5.0" tabStyle="Outfit__c" >
+    <head>
+        <c:loadJquery ></c:loadJquery>
+        <c:loadDataTable ></c:loadDataTable>
+        <c:loadBootstrap ></c:loadBootstrap>
+        <script type="text/javascript">
+            $(function() {
+                var tabs=$( "#outFitDiv" ).tabs({collapsible: true});
+                tabs.find( ".ui-tabs-nav" ).sortable({
+                axis: "x",
+                stop: function() {
+                   tabs.tabs( "refresh" );
+                   }
+                });
+            });
+            function toggleCnt(btn){
+               var cnt=$(btn).text();
+               if(cnt.indexOf('[-]')!=-1){
+                   cnt=cnt.replace('[-]','[+]');
+               }
+               else if(cnt.indexOf('[+]')!=-1){
+                   cnt=cnt.replace('[+]','[-]');
+               }
+               $(btn).text(cnt);
+            }
+       </script>
+       </head>
+       <c:outfitHeader ></c:outfitHeader>
+       <div id="outFitDiv">
+       
+        <ul>
+            <li><a href="#outFitTab">My Outfits</a></li>
+            <li><a href="#outFitFormTab">My Outfit Selection</a></li>
+            <li><a href="#kartTab">My Kart</a></li>
+            <li><a href="#ordTab">My Orders</a></li>
+            <li><a href="#profileTab">My Profile</a></li>
+            <li><a href="#securityTab">My Security</a></li>
+        </ul>
+       
+       <div>
+           
+       
+        <div id="outFitTab">
+            <!-- <c:outfitComponent ></c:outfitComponent> -->
+            <c:OutfitComponentRUI ></c:OutfitComponentRUI>
+        </div>
+        <div id="outFitFormTab">
+            <!-- <c:OutfitFormComponent ></c:OutfitFormComponent> -->
+            <c:OutfitFormComponentRUI ></c:OutfitFormComponentRUI>
+        </div>
+        <div id="kartTab">
+            <c:KartComponent ></c:KartComponent>
+        </div>
+       <div id="profileTab">
+            <c:ProfileComponent ></c:ProfileComponent>
+       </div>
+       <div id="securityTab">
+            <c:PasswordComponent ></c:PasswordComponent>
+        </div>
+       <div id="ordTab">
+            <!-- <c:OrderComponent ></c:OrderComponent> -->
+            <c:OrderComponentRUI ></c:OrderComponentRUI>
+        </div>
+</div>
+   </div>
+
+</apex:page>

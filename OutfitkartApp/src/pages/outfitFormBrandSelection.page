@@ -1,0 +1,116 @@
+<apex:page controller="OutfitController" showHeader="false" sidebar="false"> 
+   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+   <apex:form >
+       <apex:pageBlock >
+            <div class="panel panel-primary">
+                <div class="panel-heading">Select brands you have in wardrobe?</div>
+                    <table border="0">
+                    <tr>
+                        <td>
+                            <div align="center">Barbour</div>
+                            <apex:commandLink action="{!gotoSize}">
+                               <apex:param name="selBr" assignTo="{!selectedBrand}" value="Barbour"></apex:param>
+                               <apex:image url="{!$Resource.barbour}" width="200"  height="200" style="margin:20px;"/>
+                            </apex:commandLink>
+                        </td>
+                        <td>
+                            <div align="center">Boss</div>
+                            <apex:commandLink action="{!gotoSize}">
+                               <apex:param name="selBr" assignTo="{!selectedBrand}" value="Boss"></apex:param>
+                               <apex:image url="{!$Resource.boss}" width="200" height="200" style="margin:20px;"/>
+                            </apex:commandLink>
+                        </td>
+                        <td>
+                            <div align="center">Fred Perry</div>
+                            <apex:commandLink action="{!gotoSize}">
+                               <apex:param name="selBr" assignTo="{!selectedBrand}" value="Fred Perry"></apex:param>
+                              <apex:image url="{!$Resource.Fredperry}" width="200" height="200" style="margin:20px;"/>  
+                            </apex:commandLink>
+                        </td>
+                        <td>
+                            <div align="center">Gant</div>
+                            <apex:commandLink action="{!gotoSize}">
+                               <apex:param name="selBr" assignTo="{!selectedBrand}" value="Gant"></apex:param>
+                              <apex:image url="{!$Resource.Gant}" width="200" height="200" style="margin:20px;"/>  
+                            </apex:commandLink>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div align="center">Gap</div>
+                            <apex:commandLink action="{!gotoSize}">
+                              <apex:param name="selBr" assignTo="{!selectedBrand}" value="Gap"></apex:param>
+                              <apex:image url="{!$Resource.Gap}" width="200"  height="200" style="margin:20px;"/>
+                            </apex:commandLink>
+                               
+                        </td>
+                        <td>
+                            <div align="center">Hackett London</div>
+                            <apex:commandLink action="{!gotoSize}">
+                              <apex:param name="selBr" assignTo="{!selectedBrand}" value="Hackett London"></apex:param>
+                              <apex:image url="{!$Resource.Hackett}" width="200" height="200" style="margin:20px;"/>
+                            </apex:commandLink>
+                                
+                        </td>
+                        <td>
+                            <div align="center">Levis</div>
+                            <apex:commandLink action="{!gotoSize}">
+                              <apex:param name="selBr" assignTo="{!selectedBrand}" value="Levi's"></apex:param>
+                              <apex:image url="{!$Resource.Levis}" width="200" height="200" style="margin:20px;"/>
+                            </apex:commandLink>
+                                
+                        </td>
+                        <td>
+                            <div align="center">Paul Smith</div>
+                            <apex:commandLink action="{!gotoSize}">
+                               <apex:param name="selBr" assignTo="{!selectedBrand}" value="Paul Smith"></apex:param>
+                               <apex:image url="{!$Resource.Paulsmith}" width="200" height="200" style="margin:20px;"/>  
+                            </apex:commandLink>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div align="center">Ralph Lauren</div>
+                            <apex:commandLink action="{!gotoSize}">
+                               <apex:param name="selBr" assignTo="{!selectedBrand}" value="Ralph Lauren"></apex:param>
+                               <apex:image url="{!$Resource.RalphLauren}" width="200"  height="200" style="margin:20px;"/>
+                            </apex:commandLink>
+                               
+                        </td>
+                        <td>
+                            <div align="center">Reiss</div>
+                            <apex:commandLink action="{!gotoSize}">
+                               <apex:param name="selBr" assignTo="{!selectedBrand}" value="Reiss"></apex:param>
+                               <apex:image url="{!$Resource.Reiss}" width="200" height="200" style="margin:20px;"/>
+                            </apex:commandLink>   
+                        </td>
+                        <td>
+                            <div align="center">Ted Baker</div>
+                            <apex:commandLink action="{!gotoSize}">
+                               <apex:param name="selBr" assignTo="{!selectedBrand}" value="Ted Baker"></apex:param>
+                               <apex:image url="{!$Resource.Tedbaker}" width="200" height="200" style="margin:20px;"/> 
+                            </apex:commandLink>
+                        </td>
+                        <td>
+                            <div align="center">Tommy Hilfiger</div>
+                            <apex:commandLink action="{!gotoSize}">
+                              <apex:param name="selBr" assignTo="{!selectedBrand}" value="Tommy Hilfiger"></apex:param>
+                              <apex:image url="{!$Resource.Tommyhilfiger}" width="200" height="200" style="margin:20px;"/>
+                            </apex:commandLink>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!gotoWorkStyle}" value="Work Style"/>
+                <apex:commandButton action="{!gotoEveningStyle}" value="Outing Style"/>
+                <apex:commandButton action="{!gotoShirtFit}" value="Shirt Fit"/>
+                <apex:commandButton action="{!gotoTrouserFit}" value="Trouser Fit"/>
+                <apex:commandButton action="{!gotoSize}" value="Size"/>
+                <apex:commandButton action="{!gotoPersonalDetails}" value="Personal Details"/>
+                <apex:commandButton action="{!gotoOutfitForm}" value="Confirm Details"/>
+            </apex:pageBlockButtons>
+           <apex:pageMessages ></apex:pageMessages>
+       </apex:pageBlock>
+  </apex:form>
+</apex:page>

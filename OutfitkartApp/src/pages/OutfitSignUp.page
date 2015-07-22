@@ -1,0 +1,44 @@
+<apex:page controller="OutfitSignUpController" sidebar="false" docType="html-5.0" showHeader="false" tabStyle="Outfit__c">
+    <head>
+      <c:loadBootstrap ></c:loadBootstrap>
+    </head>
+    <apex:form >
+        <p><h3>Shop Your Outfits</h3></p> 
+        <h1><span class="glyphicon glyphicon-shopping-cart"/>Outfitkart</h1>
+        <apex:pageBlock >
+            <div class="panel panel-primary">
+                <div class="panel-heading">Sign Up</div>
+                <apex:pageBlockSection >
+                    First Name<apex:inputText id="fn" value="{!firstName}" styleClass="form-control" required="true"></apex:inputText>
+                    Last Name<apex:inputText id="ln" value="{!lastName}" styleClass="form-control" required="true"/>
+                    Phone <apex:inputText id="phone" value="{!phone}" styleClass="form-control" required="true"/>
+                    Email <apex:inputText id="email" value="{!email}" styleClass="form-control" required="true"></apex:inputText>
+                    Password <apex:inputSecret id="pwd" value="{!password}" styleClass="form-control" required="true"></apex:inputSecret>
+                    Confirm Password  <apex:inputSecret id="cPwd" value="{!confirmPassword}" styleClass="form-control" required="true"></apex:inputSecret>
+                </apex:pageBlockSection>
+           </div>
+           <div class="panel panel-primary">
+                <div class="panel-heading">Address Information</div>
+                <apex:pageBlockSection >
+                   Billing Street<apex:inputText value="{!billingStreet}" styleClass="form-control"/>
+                   Shipping Street<apex:inputText value="{!shippingStreet}" styleClass="form-control"/>
+                   Billing City<apex:inputText value="{!billingCity}" styleClass="form-control"  />
+                   Shipping City<apex:inputText value="{!shippingCity}" styleClass="form-control"  />
+                   Billing State<apex:inputText value="{!billingState}" styleClass="form-control"  />
+                   Shipping State<apex:inputText value="{!shippingState}" styleClass="form-control"/>
+                   Billing Postal Code<apex:inputText value="{!billingPostalCode}" styleClass="form-control"  />
+                   Shipping Postal Code<apex:inputText value="{!shippingPostalCode}" styleClass="form-control"  />
+                   Billing Country<apex:inputText value="{!billingCountry}" styleClass="form-control"  />
+                   Shipping Country<apex:inputText value="{!shippingCountry}" styleClass="form-control"  />
+                 </apex:pageBlockSection>
+               </div>
+             <apex:pageBlockButtons >
+                <apex:commandButton action="{!signUp}" value="Sign Up"/>
+            </apex:pageBlockButtons>
+            <apex:pageMessages ></apex:pageMessages>
+       </apex:pageBlock>
+       <div align="center">
+           <apex:outputLink value="/apex/outfitLogin">Sign In</apex:outputLink>
+       </div>
+   </apex:form>
+</apex:page>

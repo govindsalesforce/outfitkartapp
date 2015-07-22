@@ -1,0 +1,94 @@
+<apex:page controller="OutfitController" showHeader="false" sidebar="false"> 
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    <style>
+        .shrtsizeCheckboxDivCSS
+        {
+        width: 100px;
+        height:35px;
+        cursor: pointer;
+        z-index:-3; 
+        float:left;        
+        
+        padding-top:0px;
+        Font:size:8;
+        Font-weight:bold;
+        color: #032959;
+        line-height:35px;
+        text-align:center
+        
+        } 
+    </style>
+    <apex:form >
+        <apex:pageBlock >
+            <div class="panel panel-primary">
+                <div class="panel-heading">Select sizes you have in wardrobe?</div>
+                <p/>
+                <table align="center" border="2" cellpadding="10" cellspacing="10">
+                    <tr>
+                        <td>
+                            <apex:commandLink action="{!gotoPersonalDetails}">
+                                <apex:param name="selSz" value="X-SMALL" assignTo="{!selectedSize}"></apex:param>
+                                <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div1">                        
+                                    X-SMALL
+                                </div>
+                            </apex:commandLink>
+                        </td>
+                        <td>
+                            <apex:commandLink action="{!gotoPersonalDetails}">
+                                <apex:param name="selSz" value="SMALL" assignTo="{!selectedSize}"></apex:param>
+                                <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div2"> 
+                                    SMALL
+                                </div>
+                            </apex:commandLink>
+                        </td>
+                        <td>
+                            <apex:commandLink action="{!gotoPersonalDetails}">
+                                <apex:param name="selSz" value="MEDIUM" assignTo="{!selectedSize}"></apex:param>
+                                <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div3"> 
+                                    MEDIUM
+                                </div>
+                            </apex:commandLink>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:commandLink action="{!gotoPersonalDetails}">
+                                <apex:param name="selSz" value="LARGE" assignTo="{!selectedSize}"></apex:param>
+                                <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div7"> 
+                                    LARGE
+                                </div>
+                            </apex:commandLink>
+                        </td> 
+                        <td>
+                            <apex:commandLink action="{!gotoPersonalDetails}">
+                                <apex:param name="selSz" value="X-LARGE" assignTo="{!selectedSize}"></apex:param>
+                                <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div8"> 
+                                    X-LARGE
+                                </div>
+                            </apex:commandLink>
+                        </td>
+                        <td>
+                            <apex:commandLink action="{!gotoPersonalDetails}">
+                                <apex:param name="selSz" value="XX-LARGE" assignTo="{!selectedSize}"></apex:param>
+                                <div class="shrtsizeCheckboxDivCSS" id="shirtsize_Div9"> 
+                                    XX-LARGE
+                                </div>
+                            </apex:commandLink>
+                        </td>
+                    </tr>
+                </table>
+                <p/>
+            </div>
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!gotoWorkStyle}" value="Work Style"/>
+                <apex:commandButton action="{!gotoEveningStyle}" value="Outing Style"/>
+                <apex:commandButton action="{!gotoShirtFit}" value="Shirt Fit"/>
+                <apex:commandButton action="{!gotoTrouserFit}" value="Trouser Fit"/>
+                <apex:commandButton action="{!gotoBrand}" value="Brand"/>
+                <apex:commandButton action="{!gotoPersonalDetails}" value="Personal Details"/>
+                <apex:commandButton action="{!gotoOutfitForm}" value="Confirm Details"/>
+            </apex:pageBlockButtons>
+            <apex:pageMessages ></apex:pageMessages>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

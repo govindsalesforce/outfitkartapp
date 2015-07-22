@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>KartController</members>
+        <members>OutfitController</members>
+        <members>OutfitController2</members>
+        <members>OutfitListController</members>
+        <members>OutfitLoginController</members>
+        <members>OutfitProfileController</members>
+        <members>OutfitSignUpController</members>
+        <members>OutfitSuggestions</members>
+        <members>OutfitsComponent</members>
+        <members>ProductWrapper</members>
+        <members>tstpopup</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>KartComponent</members>
+        <members>OrderComponent</members>
+        <members>OrderComponentRUI</members>
+        <members>OutfitComponentRUI</members>
+        <members>OutfitFormComponent</members>
+        <members>OutfitFormComponentRUI</members>
+        <members>PasswordComponent</members>
+        <members>ProfileComponent</members>
+        <members>loadBootstrap</members>
+        <members>loadDataTable</members>
+        <members>loadJquery</members>
+        <members>outfitComponent</members>
+        <members>outfitHeader</members>
+        <name>ApexComponent</name>
+    </types>
+    <types>
+        <members>MyProfilePage</members>
+        <members>OutfitLogin</members>
+        <members>OutfitSignUp</members>
+        <members>PopupPage</members>
+        <members>jqueryDialogPage</members>
+        <members>outfitForm</members>
+        <members>outfitForm2</members>
+        <members>outfitFormBrandSelection</members>
+        <members>outfitFormEveningStyleSelection</members>
+        <members>outfitFormPersonalDetails</members>
+        <members>outfitFormShirtFitSelection</members>
+        <members>outfitFormSizeSelection</members>
+        <members>outfitFormTrouserFitSelection</members>
+        <members>outfitFormWorkStyleSelection</members>
+        <members>outfitHome</members>
+        <members>outfitHome2</members>
+        <members>outfitListPage</members>
+        <members>outfitSignupForm</members>
+        <members>outfitSuggestPage</members>
+        <members>outfitkartLogin</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>Outfitkart</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>*</members>
+        <members>Account</members>
+        <members>AccountCleanInfo</members>
+        <members>AccountContactRole</members>
+        <members>Activity</members>
+        <members>Case</members>
+        <members>CaseContactRole</members>
+        <members>Opportunity</members>
+        <members>OpportunityCompetitor</members>
+        <members>OpportunityContactRole</members>
+        <members>OpportunityLineItem</members>
+        <members>Order</members>
+        <members>OrderItem</members>
+        <members>Pricebook2</members>
+        <members>PricebookEntry</members>
+        <members>Product2</members>
+        <members>Quote</members>
+        <members>QuoteLineItem</members>
+        <members>Task</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>Account-Account %28Marketing%29 Layout</members>
+        <members>Account-Account %28Sales%29 Layout</members>
+        <members>Account-Account %28Support%29 Layout</members>
+        <members>Account-Account Layout</members>
+        <members>Kart_Product__c-Kart Product Layout</members>
+        <members>Kart__c-Kart Layout</members>
+        <members>Opportunity-Opportunity %28Marketing%29 Layout</members>
+        <members>Opportunity-Opportunity %28Sales%29 Layout</members>
+        <members>Opportunity-Opportunity %28Support%29 Layout</members>
+        <members>Opportunity-Opportunity Layout</members>
+        <members>OpportunityLineItem-Opportunity Product Layout</members>
+        <members>Order-Order Layout</members>
+        <members>Order_Book__c-Order Book Layout</members>
+        <members>Outfit_Inspiration__c-Outfit Inspiration Layout</members>
+        <members>Outfit__c-Outfit Layout</members>
+        <members>Pricebook2-Price Book Layout</members>
+        <members>PricebookEntry-Price Book Entry Layout</members>
+        <members>Product2-Product Layout</members>
+        <members>Quote-Quote Layout</members>
+        <members>QuoteLineItem-Quote Line Item Layout</members>
+        <members>Stock__c-Stock Layout</members>
+        <members>Task-Task Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>StaticResource</name>
+    </types>
+    <types>
+        <members>Account</members>
+        <members>Case</members>
+        <members>Kart_Product__c</members>
+        <members>Kart__c</members>
+        <members>Opportunity</members>
+        <members>OpportunityLineItem</members>
+        <members>Order</members>
+        <members>OrderItem</members>
+        <members>Order_Book__c</members>
+        <members>Outfit_Inspiration__c</members>
+        <members>Outfit__c</members>
+        <members>Product2</members>
+        <members>Quote</members>
+        <members>QuoteLineItem</members>
+        <members>Stock__c</members>
+        <name>Workflow</name>
+    </types>
+    <version>31.0</version>
+</Package>

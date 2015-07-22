@@ -1,0 +1,136 @@
+<apex:component controller="OutfitController2" allowDML="true">
+    <head>
+      
+    </head>
+    <body>
+        <apex:outputPanel styleClass="text-info" id="statusPanel">
+                <apex:pageMessages ></apex:pageMessages>
+        </apex:outputPanel>
+        <apex:form >
+             <apex:repeat value="{!outfitProductsMap}" id="outfitTable" var="outfit" >
+                <button type="button" onclick="toggleCnt(this)" align="center" class="btn btn-primary" data-toggle="collapse" data-target="#outfitDiv{!outfit.Id}">
+                    {!outfit.Name} [+]
+                </button>
+                    <div class="collapse reponsive"  id="outfitDiv{!outfit.Id}" align="center">
+                        <table align="center" class="table" style="width:65%" cellspacing="10">
+                               <tr>
+                                    <th>Work Style</th>
+                                    <td>{!outfit.Work_Style__c}</td>
+                                </tr>
+                                <tr>
+                                    <th>Evening Style</th>
+                                    <td>{!outfit.Evening_Style__c}</td>
+                                </tr>
+                                <tr>
+                                    <th>Shirt Fit</th>
+                                    <td>{!outfit.Shirt_Fit__c}</td>
+                                </tr>
+                                <tr>
+                                    <th>Trousers Fit</th>
+                                    <td>{!outfit.Trousers_Fit__c}</td>
+                                </tr>
+                                <tr>
+                                    <th>Brand</th>
+                                    <td>{!outfit.Brand__c}</td>
+                                </tr>
+                                <tr>
+                                    <th>Size</th>
+                                    <td>{!outfit.Size__c}</td>
+                                </tr>
+                                <tr>
+                                    <th>Created On</th>
+                                    <td>{!outfit.CreatedDate}</td>
+                                </tr>
+                         </table>
+                        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#productsDiv{!outfit.Id}">
+                            View Products
+                        </button>
+                        <p/>                        
+                        <div id="productsDiv{!outfit.Id}" class="collapse">
+                            <apex:pageBlock >
+                                <script type="text/javascript">
+                                function toggleProductSelection(chkbox){
+                                    if(chkbox.id.indexOf('proHdr')!=-1){
+                                        if($(chkbox).is(':checked')){
+                                            $('.proChk').each(function() { 
+                                                this.checked = true;              
+                                            });
+                                        }
+                                        else{
+                                            $('.proChk').each(function() { 
+                                                this.checked = false;              
+                                            });
+                                        }
+                                    }
+                                    else{
+                                        var isChkd=true
+                                        $('.proChk').each(function() { 
+                                            if(!this.checked){
+                                                isChkd=false;
+                                                return false;
+                                            }
+                                        });
+                                        if(isChkd)
+                                            $('.proHdr').prop('checked', true);
+                                        else{
+                                            $('.proHdr').prop('checked', false); 
+                                        }
+                                    }
+                                }
+                                </script>
+                                <apex:pageBlockTable id="productTable" value="{!outfitProductsMap[outfit]}" var="productWrapper" align="center" style="width:65%" styleClass="table table-condensed table-hover table-bordered display" >
+                                    <apex:column >
+                                        <apex:facet name="header">
+                                            <apex:inputCheckbox id="proHdr" styleClass="proHdr" onclick="toggleProductSelection(this)" value="{!isAllOutfitProductSelected}">
+                                            </apex:inputCheckbox>
+                                        </apex:facet>
+                                        <apex:inputCheckbox styleClass="proChk"  onchange="toggleProductSelection(this)" value="{!productWrapper.isSelected}"></apex:inputCheckbox>
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">Name</apex:facet>
+                                        {!productWrapper.pwPro.Name}
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">Product Code</apex:facet>
+                                        {!productWrapper.pwPro.ProductCode}
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">Description</apex:facet>
+                                        {!productWrapper.pwPro.Description}
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">Preview</apex:facet>
+                                        <apex:commandLink onclick="javascript:showPopup()" action="{!getPreviews}"  styleClass="btn btn-primary" rerender="previewPanel"><font color="white">Show</font>
+                                            <apex:param name="pid" value="{!productWrapper.pwPro.Id}"></apex:param>
+                                        </apex:commandLink>
+                                    </apex:column>
+                                </apex:pageBlockTable>
+                                <apex:commandLink action="{!addToCart2}" styleClass="btn btn-primary">
+                                    <font color="white">Add To Kart</font><apex:param name="oid" value="{!outfit.Id}"></apex:param>
+                                </apex:commandLink> 
+                            </apex:pageBlock>
+                        </div>
+                    </div>
+                <p/>
+             </apex:repeat>
+            <apex:outputPanel id="previewPanel">
+                <script type="text/javascript">
+                $(function() {
+                    $('#previewDiv').dialog({height:500,width:1000});
+                    $('#previewDiv').dialog("close"); 
+                });
+                function showPopup(){
+                    $('#previewDiv').dialog("option","show");
+                }
+                </script>
+                <div id="previewDiv">
+                    <apex:outputText rendered="{!previews.size==0}">No Preview Found</apex:outputText>
+                    <apex:repeat value="{!previews}" var="preview">
+                        <apex:image url="/servlet/servlet.FileDownload?file={!preview.Id}" />
+                    </apex:repeat>
+                </div>
+            </apex:outputPanel>
+           
+        </apex:form>
+    </body>
+</apex:component>

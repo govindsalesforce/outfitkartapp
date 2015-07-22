@@ -1,0 +1,74 @@
+<apex:page controller="OutfitController" showHeader="false" sidebar="false" >
+   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+   <apex:form >
+       <apex:pageBlock >
+            <div class="panel panel-primary">
+                <div class="panel-heading">What Do You Wear At Work ? </div>
+                    <apex:pageBlockSection >
+                          <apex:selectList size="1" multiselect="false" value="{!selectedWorkStyle}" styleClass="form-control">
+                              <apex:selectOptions value="{!workStyles}"></apex:selectOptions>
+                          </apex:selectList>
+                    </apex:pageBlockSection>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">How do you do to go out? </div>
+                    <apex:pageBlockSection >
+                          <apex:selectList size="1" multiselect="false" value="{!selectedEveningStyle}" styleClass="form-control">
+                              <apex:selectOptions value="{!eveningStyles}"></apex:selectOptions>
+                          </apex:selectList>
+                    </apex:pageBlockSection>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">How do you like your shirt to fit? </div>
+                    <apex:pageBlockSection >
+                          <apex:selectList size="1" multiselect="false" value="{!selectedShirtFit}" styleClass="form-control">
+                              <apex:selectOptions value="{!shirtFits}"></apex:selectOptions>
+                          </apex:selectList>
+                    </apex:pageBlockSection>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">How do you like your trousers to fit?</div>
+                    <apex:pageBlockSection >
+                          <apex:selectList size="1" multiselect="false" value="{!selectedTrouserFit}" styleClass="form-control">
+                              <apex:selectOptions value="{!trouserFits}"></apex:selectOptions>
+                          </apex:selectList>
+                    </apex:pageBlockSection>
+            </div>
+           <div class="panel panel-primary">
+                <div class="panel-heading">Select brands you have in wardrobe</div>
+                    <apex:pageBlockSection >
+                          <apex:selectList size="1" multiselect="false" value="{!selectedBrand}" styleClass="form-control">
+                              <apex:selectOptions value="{!brands}"></apex:selectOptions>
+                          </apex:selectList>
+                    </apex:pageBlockSection>
+            </div>
+             <div class="panel panel-primary">
+                <div class="panel-heading">Select Sizes you have in wardrobe</div>
+                    <apex:pageBlockSection >
+                          <apex:selectList size="1" multiselect="false" value="{!selectedSize}" styleClass="form-control">
+                              <apex:selectOptions value="{!sizes}"></apex:selectOptions>
+                          </apex:selectList>
+                    </apex:pageBlockSection>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">Personel Details</div>
+                    <apex:pageBlockSection >
+                         First Name  <apex:inputText value="{!firstName}" id="fn" styleClass="form-control"></apex:inputText>
+                         Last Name   <apex:inputText value="{!lastName}" id="ln" styleClass="form-control"></apex:inputText>
+                         Email       <apex:inputText value="{!email}" id="email" styleClass="form-control"></apex:inputText>
+                    </apex:pageBlockSection>
+            </div>
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!gotoWorkStyle}" value="Work Style"/>
+                <apex:commandButton action="{!gotoEveningStyle}" value="Outing Style"/>
+                <apex:commandButton action="{!gotoShirtFit}" value="Shirt Fit"/>
+                <apex:commandButton action="{!gotoTrouserFit}" value="Trouser Fit"/>
+                <apex:commandButton action="{!gotoBrand}" value="Brand"/>
+                <apex:commandButton action="{!gotoSize}" value="Size"/>
+                <apex:commandButton action="{!gotoPersonalDetails}" value="Personal Details"/>
+                <apex:commandButton action="{!submitDetails}" value="Submit"/>
+            </apex:pageBlockButtons>
+            <apex:pageMessages ></apex:pageMessages>
+       </apex:pageBlock>
+  </apex:form>
+</apex:page>

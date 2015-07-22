@@ -1,0 +1,25 @@
+<apex:page controller="OutfitLoginController" sidebar="false" docType="html-5.0" showHeader="false" tabStyle="Outfit__c">
+    <head>
+        <c:loadBootstrap ></c:loadBootstrap>
+    </head>
+    <apex:form >
+        <p><h3>Shop Your Outfits</h3></p> 
+    <h1><span class="glyphicon glyphicon-shopping-cart"/>Outfitkart</h1>
+    <apex:pageBlock >
+        <div class="panel panel-primary">
+            <div class="panel-heading">Sign In</div>
+            <apex:pageBlockSection >
+                Email     <apex:inputText id="email" value="{!email}" required="true" styleClass="form-control"></apex:inputText>
+                Password  <apex:inputSecret id="pwd" value="{!password}" required="true" styleClass="form-control"></apex:inputSecret>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!signIn}" value="Sign In" styleClass="btn btn-default"/>
+            </apex:pageBlockButtons>
+        </div>
+        <apex:pageMessages ></apex:pageMessages>
+    </apex:pageBlock>
+    <div align="center">
+        <apex:outputLink value="/apex/outfitSignUp">Sign Up</apex:outputLink>
+    </div>
+ </apex:form>
+</apex:page>

@@ -1,0 +1,133 @@
+<apex:component controller="OutfitController2"  allowDML="true">
+     <apex:form >
+    <apex:pageBlock >
+        <script type="text/javascript">
+            $(function() {
+                //$('#ot').dataTable({"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],"order": [[ 7, "desc" ]]});
+                $('#proDiv').hide();
+            });
+            function showProDiv(){
+               if(!$('#proDiv').is(':visible'))
+                   $('#proDiv').show();
+            }
+        </script>
+       
+        <div class="panel panel-primary">
+            <div class="panel-heading">Outfits</div>
+                 <apex:pageBlockTable value="{!outfits}" var="outfit" styleClass="table table-condensed table-hover table-bordered display">
+                     <apex:column >
+                        <apex:facet name="header">Name</apex:facet>
+                          {!outfit.Name}
+                     </apex:column>
+                     <apex:column >
+                         <apex:facet name="header">Work Style</apex:facet>
+                          {!outfit.Work_Style__c}
+                     </apex:column>
+                     <apex:column >
+                         <apex:facet name="header">Evening Style</apex:facet>
+                          {!outfit.Evening_Style__c}
+                     </apex:column>
+                     <apex:column >
+                         <apex:facet name="header">Shirt Fit</apex:facet>
+                          {!outfit.Shirt_Fit__c}
+                     </apex:column>
+                     <apex:column >
+                         <apex:facet name="header">Trouser Fit</apex:facet>
+                          {!outfit.Trousers_Fit__c}
+                     </apex:column>
+                     <apex:column >
+                         <apex:facet name="header">Brand</apex:facet>
+                          {!outfit.Brand__c}
+                     </apex:column>
+                     <apex:column >
+                         <apex:facet name="header">Size</apex:facet>
+                          {!outfit.Size__c}
+                     </apex:column>
+                     <apex:column >
+                          <apex:facet name="header">Created On</apex:facet>
+                          {!outfit.CreatedDate}
+                     </apex:column>
+                     <apex:column >
+                           <apex:facet name="header">Suggestion</apex:facet>
+                           <apex:commandLink onclick="javascript:showProDiv()" action="{!displayOutfitProducts}" value="View" reRender="productPanel,statusPanel">
+                                        <apex:param name="oid"  value="{!outfit.Id}"></apex:param>
+                                        <apex:param name="oname" value="{!outfit.Name}" assignTo="{!selectedOutfitName}"></apex:param>
+                           </apex:commandLink>
+                     </apex:column>
+              </apex:pageBlockTable>
+            </div>
+       
+        <p/>
+        <apex:outputPanel id="productPanel">
+            <div id="proDiv" class="panel panel-primary">
+                <div class="panel-heading">
+                   Suggested Products For {!selectedOutfitName}
+                </div>
+                <apex:outputText rendered="{!IF(outfitProducts.empty,true,false)}">No Data Available</apex:outputText>
+                  <apex:pageBlock rendered="{!IF(outfitProducts.empty,false,true)}">
+                    <apex:pageBlockTable id="productTable" value="{!outfitProducts}" var="productWrapper" styleClass="table table-condensed table-hover table-bordered display" >
+                        <apex:column >
+                        <apex:facet name="header"><apex:inputCheckbox value="{!isAllOutfitProductSelected}">
+                            <apex:actionSupport event="onchange" action="{!toggleOutfitProductSelection}" reRender="productTable">
+                                
+                            </apex:actionSupport>
+                            </apex:inputCheckbox></apex:facet>
+                        <apex:inputCheckbox value="{!productWrapper.isSelected}"></apex:inputCheckbox>
+                    </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">Name</apex:facet>
+                            {!productWrapper.pwPro.Name}
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">Product Code</apex:facet>
+                            {!productWrapper.pwPro.ProductCode}
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">Description</apex:facet>
+                            {!productWrapper.pwPro.Description}
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">Stock</apex:facet>
+                            {!IF(productWrapper.pwPro.Stock__c==null||productWrapper.pwPro.Stock__c<=0,'Out Of Stock',productWrapper.pwPro.Stock__c)}
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">Unit Price</apex:facet>
+                            {!IF(productWrapper.pwPro.PricebookEntries.empty,'--',productWrapper.pwPro.PricebookEntries[0].UnitPrice)}
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">Preview</apex:facet>
+                            <apex:commandLink onclick="javascript:showPopup()" action="{!getPreviews}" value="Show" styleClass="btn" rerender="previewPanel">
+                                <apex:param name="pid" value="{!productWrapper.pwPro.Id}"></apex:param>
+                            </apex:commandLink>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    <apex:pageBlockButtons >
+                         <apex:commandButton action="{!addToCart}" value="Add To Kart"/>
+                    </apex:pageBlockButtons> 
+                   </apex:pageBlock>
+            </div>
+        </apex:outputPanel>
+        <apex:outputPanel id="previewPanel">
+            <script type="text/javascript">
+            $(function() {
+                $('#previewDiv').dialog({height:500,width:1000});
+                $('#previewDiv').dialog("close"); 
+            });
+            function showPopup(){
+                $('#previewDiv').dialog("option","show");
+            }
+            </script>
+            <div id="previewDiv">
+                <apex:outputText rendered="{!previews.size==0}">No Preview Found</apex:outputText>
+                <apex:repeat value="{!previews}" var="preview">
+                    <apex:image url="/servlet/servlet.FileDownload?file={!preview.Id}" />
+                </apex:repeat>
+            </div>
+           
+          </apex:outputPanel>
+          <apex:outputPanel id="statusPanel">
+            <apex:pageMessages ></apex:pageMessages>
+          </apex:outputPanel>
+    </apex:pageBlock>
+  </apex:form>
+</apex:component>

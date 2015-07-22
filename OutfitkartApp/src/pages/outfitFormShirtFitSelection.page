@@ -1,0 +1,46 @@
+<apex:page controller="OutfitController" showHeader="false" sidebar="false"> 
+   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+   <apex:form >
+       <apex:pageBlock >
+            <div class="panel panel-primary">
+                <div class="panel-heading">How do you like your shirt to fit? </div>
+                   <table border="0">
+                    <tr>
+                        <td>
+                            <div align="center">Slim</div>
+                            <apex:commandLink action="{!gotoTrouserFit}">
+                                <apex:param name="selSF" assignTo="{!selectedShirtFit}" value="Slim"/>
+                                <apex:image url="{!$Resource.SlimShirt}" width="400"  height="400" style="margin:20px;"/>
+                            </apex:commandLink>
+                              
+                        </td>
+                        <td>
+                            <div align="center">Classic</div>
+                            <apex:commandLink action="{!gotoTrouserFit}">
+                                <apex:param name="selSF" assignTo="{!selectedShirtFit}" value="Classic"/>
+                                <apex:image url="{!$Resource.ClassicalShirt}" width="400" height="400" style="margin:20px;"/>
+                             </apex:commandLink>   
+                        </td>
+                        <td>
+                            <div align="center">Relaxed</div>
+                             <apex:commandLink action="{!gotoTrouserFit}">
+                                <apex:param name="selSF" assignTo="{!selectedShirtFit}" value="Relaxed"/>
+                                <apex:image url="{!$Resource.Relaxed}" width="400" height="400" style="margin:20px;"/>  
+                             </apex:commandLink> 
+                        </td>
+                     </tr>
+                </table>
+            </div>
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!gotoWorkStyle}" value="Work Style"/>
+                <apex:commandButton action="{!gotoEveningStyle}" value="Outing Style"/>
+                <apex:commandButton action="{!gotoTrouserFit}" value="Trouser Fit"/>
+                <apex:commandButton action="{!gotoBrand}" value="Brand"/>
+                <apex:commandButton action="{!gotoSize}" value="Size"/>
+                <apex:commandButton action="{!gotoPersonalDetails}" value="Personal Details"/>
+                <apex:commandButton action="{!gotoOutfitForm}" value="Confirm Details"/>
+            </apex:pageBlockButtons>
+           <apex:pageMessages ></apex:pageMessages>
+       </apex:pageBlock>
+  </apex:form>
+</apex:page>

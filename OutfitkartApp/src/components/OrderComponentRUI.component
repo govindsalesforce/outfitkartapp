@@ -1,0 +1,138 @@
+<apex:component controller="OutfitController2"   allowDML="true">
+    <script type="text/javascript">
+        $(function() {
+            $("#orderDiv" ).tabs();
+        });
+    </script>
+    <div id="orderDiv">
+        <ul>
+            <li><a href="#oldOrdTb">History</a></li>
+            <li><a href="#curOrdTb">Current</a></li>
+        </ul>
+        <div id="oldOrdTb">
+            <apex:variable var="i" value="{!1}"/>
+            <apex:repeat value="{!oldOrders}" var="oldOrder">
+                <apex:form >
+                    <button type="button" onclick="toggleCnt(this)" align="center" class="btn btn-primary" data-toggle="collapse" data-target="#oldOrdDiv{!i}">
+                        {!oldOrder} [+]
+                    </button>
+                    <p/>
+                    <div class="collapse reponsive" id="oldOrdDiv{!i}" align="center">
+                        <table align="center" class="table" style="width:65%" cellspacing="10">
+                            <tr>
+                                <th>Name</th>
+                                <th>Product Code</th>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                                <th>Preview</th>
+                                <th>Unit Price</th>
+                                <th>Delivered On</th>
+                            </tr>
+                            <apex:repeat value="{!oldOrders[oldOrder]}" var="oldProductWrapper">
+                                <tr>
+                                    <td>
+                                        {!oldProductWrapper.pwPro.Name}
+                                    </td>
+                                    <td>
+                                        {!oldProductWrapper.pwPro.ProductCode}
+                                    </td>
+                                    <td>
+                                        {!oldProductWrapper.pwPro.Description}
+                                    </td>
+                                    <td>
+                                        {!oldProductWrapper.qty}
+                                    </td>
+                                    <td>
+                                        <apex:commandLink onclick="javascript:showPopup()" action="{!getPreviews}" styleClass="btn btn-primary" rerender="previewPanel"><font color="white">Show</font>
+                                            <apex:param name="pid" value="{!oldProductWrapper.pwPro.Id}"></apex:param>
+                                        </apex:commandLink>
+                                    </td>
+                                    <td>
+                                        {!IF(oldProductWrapper.listPrice.empty,'--',oldProductWrapper.listPrice)}
+                                    </td>
+                                    <td>
+                                        {!oldProductWrapper.pwPro.Delevered_On__c}
+                                    </td> 
+                                </tr>
+                            </apex:repeat>
+                        </table>
+                        
+                    </div>
+                </apex:form>
+                <apex:variable var="i" value="{!i+1}"/>
+            </apex:repeat>
+        </div>
+        <div id="curOrdTb">
+            <apex:variable var="j" value="{!1}"/>
+            <apex:repeat value="{!newOrders}" var="newOrder">
+                <apex:form >
+                    <button type="button" onclick="toggleCnt(this)" align="center" class="btn btn-primary" data-toggle="collapse" data-target="#newOrdDiv{!j}">
+                        {!newOrder} [+]
+                    </button>
+                    <p/>
+                    <div class="collapse reponsive" id="newOrdDiv{!j}" align="center">
+                        <table align="center" class="table" style="width:65%" cellspacing="10">
+                            <tr>
+                                <th>Name</th>
+                                <th>Product Code</th>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                                <th>Preview</th>
+                                <th>Unit Price</th>
+                            </tr>
+                            <apex:repeat value="{!newOrders[newOrder]}" var="newProductWrapper">
+                                <tr>
+                                    <td>
+                                        {!newProductWrapper.pwPro.Name}
+                                    </td>
+                                    <td>
+                                        {!newProductWrapper.pwPro.ProductCode}
+                                    </td>
+                                    <td>
+                                        {!newProductWrapper.pwPro.Description}
+                                        
+                                    </td>
+                                    <td>
+                                        {!newProductWrapper.qty}
+                                    </td>
+                                    <td>
+                                        <apex:commandLink onclick="javascript:showPopup()" action="{!getPreviews}"  styleClass="btn btn-primary" rerender="previewPanel"><font color="white">Show</font>
+                                            <apex:param name="pid" value="{!newProductWrapper.pwPro.Id}"></apex:param>
+                                        </apex:commandLink>
+                                    </td>
+                                    <td>
+                                        {!IF(newProductWrapper.listPrice.empty,'--',newProductWrapper.listPrice)}
+                                    </td>
+                                </tr>    
+                            </apex:repeat>
+                        </table>
+                    </div>
+                    
+                </apex:form>
+                <apex:variable var="j" value="{!j+1}"/>
+            </apex:repeat>
+            
+            
+            
+            
+        </div>     
+        
+        <apex:outputPanel id="previewPanel">
+            <script type="text/javascript">
+            $(function() {
+                $('#ordPreviewDiv').dialog({height:500,width:1000});
+                $('#ordPreviewDiv').dialog("close"); 
+            });
+            function showPopup(){
+                $('#ordPreviewDiv').dialog("option","show");
+            }
+            </script>
+            <div id="ordPreviewDiv">
+                <apex:outputText rendered="{!previews.size==0}">No Preview Found</apex:outputText>
+                <apex:repeat value="{!previews}" var="preview">
+                    <apex:image url="/servlet/servlet.FileDownload?file={!preview.Id}" />
+                </apex:repeat>
+            </div>
+        </apex:outputPanel>
+    </div>
+</apex:component>

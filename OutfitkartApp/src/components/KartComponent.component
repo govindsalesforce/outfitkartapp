@@ -1,0 +1,106 @@
+<apex:component controller="OutfitController2" allowDML="true">
+    <script type="text/javascript">
+    function toggleKartSelection(chkbox){
+        if(chkbox.id.indexOf('kartHdr')!=-1){
+            if($(chkbox).is(':checked')){
+                $('.kartChk').each(function() { 
+                    this.checked = true;              
+                });
+            }
+            else{
+                $('.kartChk').each(function() { 
+                    this.checked = false;              
+                });
+            }
+        }
+        else{
+            var isChkd=true
+            $('.kartChk').each(function() { 
+                if(!this.checked){
+                    isChkd=false;
+                    return false;
+                }
+            });
+            if(isChkd)
+                $('.kartHdr').prop('checked', true);
+            else{
+                $('.kartHdr').prop('checked', false); 
+            }
+        }
+    }
+    
+    </script>
+    <button type="button" onclick="toggleCnt(this)" align="center" class="btn btn-primary" data-toggle="collapse" data-target="#kartDiv">
+        Products In The Kart [+]
+    </button>
+    <p/>
+    <div class="collapse responsive" id="kartDiv" align="center">
+        <apex:form >
+            <table align="center" class="table" style="width:65%" cellspacing="10">
+                <tr>
+                    <th><apex:inputCheckbox onclick="toggleKartSelection(this)" id="kartHdr" styleClass="kartHdr">
+                        </apex:inputCheckbox></th>
+                    <th>Name</th>
+                    <th>Product Code</th>
+                    <th>Description</th>
+                    <th>Stock</th>
+                    <th>Unit Price</th>
+                    <th>Preview</th>
+                    <th>Quantity</th>
+                </tr>
+                <apex:repeat value="{!kart}" id="kartTable" var="newProductWrapper">
+                    <tr>
+                        <td>
+                            <apex:inputCheckbox onclick="toggleKartSelection(this)" id="kartChk" styleClass="kartChk" value="{!newProductWrapper.isSelected}"></apex:inputCheckbox>
+                        </td>
+                        <td>
+                            {!newProductWrapper.pwPro.Name}
+                        </td>
+                        <td>
+                            {!newProductWrapper.pwPro.ProductCode}
+                        </td>
+                        <td>
+                            {!newProductWrapper.pwPro.Description}
+                        </td>
+                        <td>
+                            {!IF(newProductWrapper.pwPro.Stock__c==null||newProductWrapper.pwPro.Stock__c<=0,'Out Of Stock',newProductWrapper.pwPro.Stock__c)}
+                        </td>
+                        <td>
+                            {!IF(newProductWrapper.pwPro.PricebookEntries.empty,'--',newProductWrapper.pwPro.PricebookEntries[0].UnitPrice)}
+                        </td>
+                        <td>
+                            <apex:commandLink onclick="javascript:showPopup()" action="{!getPreviews}"  styleClass="btn btn-primary" rerender="previewPanel">
+                                <font color="white">Show</font><apex:param name="pid" value="{!newProductWrapper.pwPro.Id}"></apex:param>
+                            </apex:commandLink>
+                        </td>
+                        <td>
+                            <apex:inputText value="{!newProductWrapper.qty}"/>
+                        </td>
+                    </tr>
+                </apex:repeat>
+            </table>
+            
+            <div align="center">
+                <apex:commandButton styleClass="btn-primary" action="{!sendOrder}" value="Send Order" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                <apex:commandButton styleClass="btn-primary" action="{!removeFromCart}" value="Remove From Kart"/> 
+            </div>
+        </apex:form>
+    </div>
+    <apex:outputPanel id="previewPanel">
+        <script type="text/javascript">
+        $(function() {
+            $('#kartPreviewDiv').dialog({height:500,width:1000});
+            $('#kartPreviewDiv').dialog("close"); 
+        });
+        function showPopup(){
+            $('#kartPreviewDiv').dialog("option","show");
+        }
+        </script>
+        <div id="kartPreviewDiv">
+            <apex:outputText rendered="{!previews.size==0}">No Preview Found</apex:outputText>
+            <apex:repeat value="{!previews}" var="preview">
+                <apex:image url="/servlet/servlet.FileDownload?file={!preview.Id}" />
+            </apex:repeat>
+        </div>
+    </apex:outputPanel>
+</apex:component>
